@@ -3,3 +3,5 @@
 - makefile
 - scripts folder
 - update .kai config pointing to URL images
+- rethink the project structure
+- finish README.md
