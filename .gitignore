@@ -1,0 +1,10 @@
+# PyCharm
+.idea
+# Visual Studio Code
+.vscode
+# macOS
+.DS_Store
+# Python Virtual Environment
+.venv
+# Ruff
+.ruff_cache

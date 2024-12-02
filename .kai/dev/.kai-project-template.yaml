@@ -1,0 +1,48 @@
+version: v0.1.0
+description: kai-project-template
+config: {}
+workflows:
+    - name: demo-workflow
+      type: training
+      config: {}
+      processes:
+        - name: trigger
+          type: trigger
+          image: PLACEHOLDER
+          replicas: 1
+          gpu: false
+          config:
+            path: /demo
+            port: "8080"
+          objectStore: null
+          secrets: []
+          subscriptions: []
+          networking:
+            targetPort: 8080
+            destinationPort: 8080
+            protocol: HTTP
+          resourceLimits:
+            CPU:
+                request: "0.5"
+                limit: "1"
+            memory:
+                request: 400M
+                limit: 800M
+          tolerations: {}
+        - name: training
+          type: exit
+          image: PLACEHOLDER
+          replicas: 1
+          gpu: false
+          objectStore: null
+          secrets: []
+          subscriptions:
+            - trigger
+          networking: null
+          resourceLimits:
+            CPU:
+                request: "0.5"
+                limit: "1"
+            memory:
+                request: 400M
+                limit: 800M
