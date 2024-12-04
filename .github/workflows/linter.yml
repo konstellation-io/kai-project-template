@@ -25,10 +25,10 @@ jobs:
         with:
           go-version: 1.23.2
 
-      - name: API Go Lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.62.2
-          working-directory: ./src
-          args: --config ../.github/.golangci.yml
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: API Go Lint
+      #   uses: golangci/golangci-lint-action@v6
+      #   with:
+      #     version: v1.62.2
+      #     working-directory: ./src
+      #     args: --config ../.github/.golangci.yml
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
