@@ -27,9 +27,9 @@ Before starting, make sure to meet the following requirements:
 1. **Install local KAI**:
    - Verify that all necessary components [KAI Requirements](https://github.com/konstellation-io/kai?tab=readme-ov-file#requirements) are installed. There is no specific version until now.
    - Download the latest version of KAI from the [github](https://github.com/konstellation-io/kai) repository.
-   - Deploy KAI locally using `kaictl.sh` script, avoid errors for a previous version installed using flag `drakarys`.
+   - Deploy KAI locally using `kaictl.sh` script, avoid errors for a previous version installed using flag `dracarys`.
         ```bash  
-        ./kaictl.sh dev --drakarys  
+        ./kaictl.sh dev --dracarys  
         ``` 
    - Modify the `/etc/hosts` file to include the following line, ensuring that `auth.kai.local` points to your `minikube` IP address:  
         ```bash  
