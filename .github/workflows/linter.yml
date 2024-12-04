@@ -30,5 +30,5 @@ jobs:
         with:
           version: v1.62.2
           working-directory: ./src
-          args: --config ../../.github/.golangci.yml
+          args: --config ../.github/.golangci.yml
           github-token: ${{ secrets.GITHUB_TOKEN }}
