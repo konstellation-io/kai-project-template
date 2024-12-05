@@ -1,6 +1,18 @@
-VERSION ?= v0.1.0
+# This variable have the environment to use, by default is local, but you can change when you run the make command
 ENV ?= local
-PRODUCT_NAME ?= kai-project-template
+
+# Read the PRODUCT_NAME variable based on the file inside the corresponding directory
+PRODUCT_NAME := $(shell basename $(wildcard .kai/$(ENV)/*.yaml) .yaml)
+
+# Read the VERSION variable based on the file inside the corresponding directory
+VERSION := $(shell grep 'version:' .kai/$(ENV)/$(PRODUCT_NAME).yaml | awk '{print $$2}')
+
+# Test for the see the value of the variables
+.PHONY: show-vars
+show-vars:
+	@echo "ENV: $(ENV)"
+	@echo "PRODUCT_NAME: $(PRODUCT_NAME)"
+	@echo "VERSION: $(VERSION)"
 
 # AutoDoc
 # -------------------------------------------------------------------------
@@ -23,7 +35,7 @@ create-product: ## Push processes images
 
 .PHONY: push-processes-images
 push-processes-images: ## Push processes images
-	./scripts/push_processes_images.sh
+	./scripts/push_processes_images.sh $(PRODUCT_NAME) $(VERSION)
 
 .PHONY: push-product-version
 push-product-version: ## Push new product version
