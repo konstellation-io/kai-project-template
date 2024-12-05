@@ -1,4 +1,4 @@
-FROM python:3.11.5-slim-bullseye
+FROM python:3.13.1-slim-bullseye
 
 LABEL maintainer="Intelygenz - KAI Team"
 
@@ -6,21 +6,19 @@ LABEL maintainer="Intelygenz - KAI Team"
 ARG USER=kai
 ARG UID=1001
 
-ENV PATH="/root/.local/bin:$PATH" \
-    POETRY_VIRTUALENVS_CREATE=false
+ENV PATH="/root/.local/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /tmp
 
-COPY ["pyproject.toml", "poetry.lock", "./"]
+COPY ["pyproject.toml", "uv.lock", "./"]
 
 RUN apt update &&\
     apt install -yq --no-install-recommends curl git && \
     apt-get clean && apt-get autoremove -y && \
     useradd -m -b /sdk --shell /bin/bash --uid ${UID} ${USER} && \
-    curl https://install.python-poetry.org -o poetry-install.py && \
-    python poetry-install.py --version 1.7.1 && \
-    poetry install --only main --no-interaction --no-ansi
+    curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    uv sync
 
 WORKDIR /app
 
