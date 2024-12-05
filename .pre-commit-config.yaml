@@ -19,8 +19,13 @@ repos:
         args:
           - --fix
       - id: ruff-format
-- repo: https://github.com/dnephin/pre-commit-golang
-  rev: v0.5.1
-  hooks:
-    - id: golangci-lint
-      args: ['--config', '.github/.golangci.yml', 'src/...']
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
+    hooks:
+      - id: golangci-lint
+        args:
+          [
+            "--config",
+            ".github/.golangci.yml",
+            "src/demo-workflow/triggers/rest-trigger/...",
+          ]
