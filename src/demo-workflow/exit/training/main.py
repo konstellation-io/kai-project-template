@@ -3,6 +3,7 @@ from sdk import kai_sdk
 from runner import Runner#, RunnerOptions, LoggerOptions
 
 async def initializer():
+    kai
     pass
 
 async def handler():
