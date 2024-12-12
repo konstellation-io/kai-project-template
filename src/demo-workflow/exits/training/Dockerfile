@@ -18,7 +18,8 @@ RUN apt update &&\
     apt-get clean && apt-get autoremove -y && \
     useradd -m -b /sdk --shell /bin/bash --uid ${UID} ${USER} && \
     curl -LsSf https://astral.sh/uv/install.sh | sh && \
-    uv sync
+    uv export --no-dev > /tmp/requirements.txt && \
+    uv pip install --system --requirements /tmp/requirements.txt
 
 WORKDIR /app
 
