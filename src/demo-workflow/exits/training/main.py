@@ -1,6 +1,6 @@
 import asyncio
 from sdk import kai_sdk
-from runner import runner as Runner
+from runner.runner import Runner
 
 
 async def initializer(sdk: kai_sdk):
