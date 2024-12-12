@@ -31,10 +31,6 @@ Before starting, make sure to meet the following requirements:
         ```bash
         ./kaictl.sh dev --dracarys
         ```
-   - Modify the `/etc/hosts` file to include the following line, ensuring that `auth.kai.local` points to your `minikube` IP address:
-        ```bash
-        <MINIKUBE_IP> auth.kai.local
-        ```
 
 2. **Create a User in Keycloak**:
    - Access the Keycloak admin console (`auth.kai.local`) using the administrator credentials.
@@ -52,14 +48,5 @@ Before starting, make sure to meet the following requirements:
         kli server add local kai.local --insecure   # Add the local server without security
         kli server login                            # Login to the server with the user created in Keycloak
         ```
-   - In case of error, check `/etc/hosts` file and verify if this ips are correct:
-        ```bash
-        <MINIKUBE-IP> api.kai.local
-        <MINIKUBE-IP> monitoring.kai.local
-        <MINIKUBE-IP> auth.kai.local
-        <MINIKUBE-IP> storage.kai.local
-        <MINIKUBE-IP> storage-console.kai.local
-        <MINIKUBE-IP> prometheus.kai.local
-        <MINIKUBE-IP> registry.kai.local
-        <MINIKUBE-IP> vault.kai.local
-        ```
+4. **When start product**
+   - When you create a product and want to start it, you need to include information about email, name and surname in the Keycloak (`auth.kai.local`) user (`kai-project-template`) auto-generated. If not, minio will not initialize corretly.
