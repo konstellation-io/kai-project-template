@@ -1,4 +1,4 @@
-version: v0.1.0
+version: v0.1.7
 description: kai-project-template
 config: {}
 workflows:
@@ -8,7 +8,7 @@ workflows:
     processes:
       - name: trigger
         type: trigger
-        image: PLACEHOLDER
+        image: registry.kai.local/kai-project-template_trigger:v0.1.5
         replicas: 1
         gpu: false
         config:
@@ -30,7 +30,7 @@ workflows:
             limit: 800M
       - name: training
         type: exit
-        image: PLACEHOLDER
+        image: registry.kai.local/kai-project-template_exit:v0.1.7
         replicas: 1
         gpu: false
         objectStore: null
