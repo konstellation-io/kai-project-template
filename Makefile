@@ -4,15 +4,15 @@ ENV ?= local
 # Read the PRODUCT_NAME variable based on the file inside the corresponding directory
 PRODUCT_NAME := $(shell basename $(wildcard .kai/$(ENV)/*.yaml) .yaml)
 
-# Read the VERSION variable based on the file inside the corresponding directory
-VERSION := $(shell grep 'version:' .kai/$(ENV)/$(PRODUCT_NAME).yaml | awk '{print $$2}')
+# Read the PRODUCT_VERSION variable based on the file inside the corresponding directory
+PRODUCT_VERSION := $(shell grep 'version:' .kai/$(ENV)/$(PRODUCT_NAME).yaml | awk '{print $$2}')
 
 # Test for the see the value of the variables
 .PHONY: show-vars
 show-vars:
 	@echo "ENV: $(ENV)"
 	@echo "PRODUCT_NAME: $(PRODUCT_NAME)"
-	@echo "VERSION: $(VERSION)"
+	@echo "PRODUCT_VERSION: $(PRODUCT_VERSION)"
 
 # AutoDoc
 # -------------------------------------------------------------------------
@@ -35,7 +35,7 @@ create-product: ## Push processes images
 
 .PHONY: push-processes-images
 push-processes-images: ## Push processes images
-	./scripts/push_processes_images.sh $(PRODUCT_NAME) $(VERSION)
+	./scripts/push_processes_images.sh $(PRODUCT_NAME) $(PRODUCT_VERSION)
 
 .PHONY: push-product-version
 push-product-version: ## Push new product version
@@ -43,24 +43,24 @@ push-product-version: ## Push new product version
 
 .PHONY: start-product-version
 start-product-version: ## Start the product version
-	kli product version start $(PRODUCT_NAME) $(VERSION) "starting $(VERSION) version..."
+	kli product version start $(PRODUCT_NAME) $(PRODUCT_VERSION) "starting $(PRODUCT_VERSION) version..."
 
 .PHONY: stop-product-version
 stop-product-version: ## Stop the product version
-	kli product version stop $(PRODUCT_NAME) $(VERSION) "stopping $(VERSION) version..."
+	kli product version stop $(PRODUCT_NAME) $(PRODUCT_VERSION) "stopping $(PRODUCT_VERSION) version..."
 
 .PHONY: publish-product-version
 publish-product-version: ## Publish the product version skipping the unpublished step
-	kli product version publish $(PRODUCT_NAME) $(VERSION) --force
+	kli product version publish $(PRODUCT_NAME) $(PRODUCT_VERSION) --force
 
 .PHONY: unpublish-product-version
 unpublish-product-version: ## Unpublish the product version
-	kli product version unpublish $(PRODUCT_NAME) $(VERSION)
+	kli product version unpublish $(PRODUCT_NAME) $(PRODUCT_VERSION)
 
 ##### HELPERS #####
 
-.PHONY: list-product-processes #
-list-product-processes: ## List workflow processes
+.PHONY: list-processes-images #
+list-processes-images: ## List workflow processes
 	kli process-registry ls $(PRODUCT_NAME)
 
 .PHONY: list-product-versions
