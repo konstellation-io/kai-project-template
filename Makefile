@@ -35,7 +35,7 @@ create-product: ## Push processes images
 
 .PHONY: push-processes-images
 push-processes-images: ## Push processes images
-	./scripts/push_processes_images.sh $(PRODUCT_NAME) $(PRODUCT_VERSION)
+	./scripts/push_processes_images.sh $(PRODUCT_NAME)
 
 .PHONY: push-product-version
 push-product-version: ## Push new product version
@@ -51,11 +51,15 @@ stop-product-version: ## Stop the product version
 
 .PHONY: publish-product-version
 publish-product-version: ## Publish the product version skipping the unpublished step
-	kli product version publish $(PRODUCT_NAME) $(PRODUCT_VERSION) --force
+	kli product version publish $(PRODUCT_NAME) $(PRODUCT_VERSION) "publishing $(PRODUCT_VERSION) version..."  --force
+
+.PHONY: send-request
+send-request: ## Send a request to the product version
+	./scripts/send_request.sh
 
 .PHONY: unpublish-product-version
 unpublish-product-version: ## Unpublish the product version
-	kli product version unpublish $(PRODUCT_NAME) $(PRODUCT_VERSION)
+	kli product version unpublish $(PRODUCT_NAME) $(PRODUCT_VERSION) "unpublishing $(PRODUCT_VERSION) version..."
 
 ##### HELPERS #####
 
