@@ -43,11 +43,11 @@ push-product-version: ## Push new product version
 
 .PHONY: start-product-version
 start-product-version: ## Start the product version
-	kli product version start $(PRODUCT_NAME) $(VERSION)
+	kli product version start $(PRODUCT_NAME) $(VERSION) "starting $(VERSION) version..."
 
 .PHONY: stop-product-version
 stop-product-version: ## Stop the product version
-	kli product version stop $(PRODUCT_NAME) $(VERSION)
+	kli product version stop $(PRODUCT_NAME) $(VERSION) "stopping $(VERSION) version..."
 
 .PHONY: publish-product-version
 publish-product-version: ## Publish the product version skipping the unpublished step
@@ -56,3 +56,13 @@ publish-product-version: ## Publish the product version skipping the unpublished
 .PHONY: unpublish-product-version
 unpublish-product-version: ## Unpublish the product version
 	kli product version unpublish $(PRODUCT_NAME) $(VERSION)
+
+##### HELPERS #####
+
+.PHONY: list-product-processes #
+list-product-processes: ## List workflow processes
+	kli process-registry ls $(PRODUCT_NAME)
+
+.PHONY: list-product-versions
+list-product-versions: ## List product versions
+	kli product version list $(PRODUCT_NAME)
