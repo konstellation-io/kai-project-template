@@ -29,3 +29,10 @@ repos:
             ".github/.golangci.yml",
             "src/demo-workflow/triggers/rest-trigger/...",
           ]
+  - repo: local
+    hooks:
+      - id: linter
+        name: linter
+        entry: make tidy
+        language: system
+        types: [file, python]

@@ -33,10 +33,6 @@ update-process-env: ## Update process environment
 create-product: ## Push processes images
 	kli product create $(PRODUCT_NAME) --description "Kai Project Template"
 
-.PHONY: push-processes-images
-push-processes-images: ## Push processes images
-	./scripts/push_processes_images.sh $(PRODUCT_NAME)
-
 .PHONY: push-product-version
 push-product-version: ## Push new product version
 	kli product version push .kai/$(ENV)/$(PRODUCT_NAME).yaml
