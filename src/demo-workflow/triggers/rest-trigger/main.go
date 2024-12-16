@@ -21,6 +21,7 @@ import (
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
+var port = 8080
 var path = "/trigger"
 
 func main() {
@@ -34,6 +35,17 @@ func main() {
 
 func restInitializer(kaiSDK sdk.KaiSDK) {
 	kaiSDK.Logger.Info("Initializer, loading config")
+	// Read the port from the centralized configuration
+	portConfig, err := kaiSDK.CentralizedConfig.GetConfig("port", centralizedConfiguration.ProcessScope)
+	if err == nil {
+		kaiSDK.Logger.Info("Initializer, config loaded", "port", portConfig)
+		port, err = strconv.Atoi(portConfig)
+		if err != nil {
+			kaiSDK.Logger.Error(errors.New("error parsing port"), "error parsing port")
+		}
+	}
+
+	// Read the path from the centralized configuration
 	pathConfig, err := kaiSDK.CentralizedConfig.GetConfig("path", centralizedConfiguration.ProcessScope)
 	if err == nil {
 		kaiSDK.Logger.Info("Initializer, config loaded", "path", pathConfig)
@@ -42,7 +54,7 @@ func restInitializer(kaiSDK sdk.KaiSDK) {
 }
 
 func restServerRunner(tr *trigger.Runner, kaiSDK sdk.KaiSDK) {
-	kaiSDK.Logger.Info("Starting http server", "port", 8080)
+	kaiSDK.Logger.Info("Starting http server", "port", port)
 
 	bgCtx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
@@ -54,7 +66,7 @@ func restServerRunner(tr *trigger.Runner, kaiSDK sdk.KaiSDK) {
 	r.DELETE(path, deleteHandler(kaiSDK, tr.GetResponseChannel))
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    ":" + strconv.Itoa(port),
 		Handler: r,
 	}
 
