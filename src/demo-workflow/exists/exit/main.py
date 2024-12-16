@@ -1,18 +1,20 @@
 import asyncio
-from sdk import kai_sdk
+from sdk.kai_sdk import KaiSDK
 from runner.runner import Runner
+from google.protobuf.any_pb2 import Any
 
 
-async def initializer(sdk: kai_sdk):
-    pass
+async def initializer(sdk: KaiSDK):
+    sdk.logger.info("Initializing exit process")
 
 
-async def handler(sdk: kai_sdk):
-    pass
+async def handler(sdk: KaiSDK, message: Any):
+    sdk.logger.info("Received message: %s", message)
+    await sdk.messaging.send_output(response=message)
 
 
-async def finalizer(sdk: kai_sdk):
-    pass
+async def finalizer(sdk: KaiSDK):
+    sdk.logger.info("Finalizing exit process")
 
 
 async def init():
