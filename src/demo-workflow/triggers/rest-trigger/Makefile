@@ -10,7 +10,7 @@ PROCESS_ID = rest-trigger
 
 
 .PHONY: push-image
-push-image: ## Login to the aio platform
+push-image: ## Push process image in this folder
 	kli process-registry register trigger $(PROCESS_ID) --dockerfile "Dockerfile" --product $(PRODUCT_NAME) --src "." --version $(PROCESS_VERSION)
 
 ##### LINTER

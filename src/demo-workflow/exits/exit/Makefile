@@ -10,12 +10,8 @@ PROCESS_ID = exit
 
 
 .PHONY: push-image
-push-image: ## Login to the aio platform
+push-image: ## Push process image in this folder
 	kli process-registry register exit $(PROCESS_ID) --dockerfile "Dockerfile" --product $(PRODUCT_NAME) --src "." --version $(PROCESS_VERSION)
-
-.PHONY: test-command
-test-command:
-	echo $(ENV) && echo $(PROCESS_VERSION) && echo $(PROCESS_ID)
 
 ##### LINTER
 

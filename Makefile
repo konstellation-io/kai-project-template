@@ -7,6 +7,9 @@ PRODUCT_NAME := $(shell basename $(wildcard .kai/$(ENV)/*.yaml) .yaml)
 # Read the PRODUCT_VERSION variable based on the file inside the corresponding directory
 PRODUCT_VERSION := $(shell grep 'version:' .kai/$(ENV)/$(PRODUCT_NAME).yaml | awk '{print $$2}')
 
+# Sub folders of process
+SUBDIRS = src/demo-workflow/triggers/rest-trigger src/demo-workflow/tasks/training src/demo-workflow/exits/exit
+
 # Test for the see the value of the variables
 .PHONY: show-vars
 show-vars:
@@ -32,6 +35,12 @@ update-process-env: ## Update process environment
 .PHONY: create-product
 create-product: ## Push processes images
 	kli product create $(PRODUCT_NAME) --description "Kai Project Template"
+
+.PHONY: push-all-process-images
+push-all-process-images: ## Push all process image by default
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir push-image; \
+	done
 
 .PHONY: push-product-version
 push-product-version: ## Push new product version
