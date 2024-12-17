@@ -2,7 +2,7 @@
 
 # This variable have the environment to use, by default is local, but you can change when you run the make command
 ENV ?= local
-PROCESS_VERSION ?= v0.0.1
+PROCESS_VERSION ?= v0.0.3
 
 # Read the PRODUCT_NAME variable based on the file inside the corresponding directory
 PRODUCT_NAME := $(shell basename $(wildcard ./../../../../.kai/$(ENV)/*.yaml) .yaml)

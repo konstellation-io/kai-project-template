@@ -2,7 +2,6 @@ import asyncio
 from sdk.kai_sdk import KaiSDK
 from runner.runner import Runner
 from google.protobuf.any_pb2 import Any
-from google.protobuf.struct_pb2 import Value
 
 
 async def initializer(sdk: KaiSDK):
@@ -10,13 +9,8 @@ async def initializer(sdk: KaiSDK):
 
 
 async def handler(sdk: KaiSDK, message: Any):
-    sdk.logger.info("Received message: %s, start creating response", message)
-    response = Value()
-    response.struct_value.fields["status"].string_value = "200"
-    response.struct_value.fields[
-        "message"
-    ].string_value = "Training completed successfully"
-    await sdk.messaging.send_output(response=response)
+    sdk.logger.info(f"Received message in training: {message}")
+    await sdk.messaging.send_any(response=message)
 
 
 async def finalizer(sdk: KaiSDK):

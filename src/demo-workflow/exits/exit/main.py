@@ -9,8 +9,8 @@ async def initializer(sdk: KaiSDK):
 
 
 async def handler(sdk: KaiSDK, message: Any):
-    sdk.logger.info("Received message: %s", message)
-    await sdk.messaging.send_output(response=message)
+    sdk.logger.info(f"Received message: {message}")
+    await sdk.messaging.send_any(response=message)
 
 
 async def finalizer(sdk: KaiSDK):

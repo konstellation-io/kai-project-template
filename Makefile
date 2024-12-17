@@ -39,7 +39,7 @@ create-product: ## Push processes images
 .PHONY: push-all-process-images
 push-all-process-images: ## Push all process image by default
 	@for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir push-image; \
+		$(MAKE) -C $$dir push-image; \admin/master/console/#/konstellation/users/2cb1e3b2-3ffd-4cda-84e7-a0c16d042706/credentials
 	done
 
 .PHONY: push-product-version
