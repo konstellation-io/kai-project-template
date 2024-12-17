@@ -13,6 +13,10 @@ PROCESS_ID = exit
 push-image: ## Login to the aio platform
 	kli process-registry register exit $(PROCESS_ID) --dockerfile "Dockerfile" --product $(PRODUCT_NAME) --src "." --version $(PROCESS_VERSION)
 
+.PHONY: test-command
+test-command:
+	echo $(ENV) && echo $(PROCESS_VERSION) && echo $(PROCESS_ID)
+
 ##### LINTER
 
 .PHONY: linter-py
