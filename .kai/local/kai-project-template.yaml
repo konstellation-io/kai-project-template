@@ -1,0 +1,65 @@
+version: v0.1.4
+description: kai-project-template
+config: {}
+workflows:
+  - name: demo-workflow
+    type: training
+    config: {}
+    processes:
+      - name: trigger
+        type: trigger
+        image: registry.kai.local/kai-project-template_rest-trigger:v0.0.1
+        replicas: 1
+        gpu: false
+        config:
+          path: /rest-trigger
+          port: "8080"
+        objectStore: null
+        secrets: []
+        subscriptions:
+          - exit
+        networking:
+          targetPort: 8080
+          destinationPort: 8080
+          protocol: HTTP
+        resourceLimits:
+          CPU:
+            request: "0.5"
+            limit: "1"
+          memory:
+            request: 400M
+            limit: 800M
+      - name: training
+        type: task
+        image: registry.kai.local/kai-project-template_training:v0.0.4
+        replicas: 1
+        gpu: false
+        objectStore: null
+        secrets: []
+        subscriptions:
+          - trigger
+        networking: null
+        resourceLimits:
+          CPU:
+            request: "0.5"
+            limit: "1"
+          memory:
+            request: 400M
+            limit: 800M
+      - name: exit
+        type: exit
+        image: registry.kai.local/kai-project-template_exit:v0.0.2
+        replicas: 1
+        gpu: false
+        objectStore: null
+        secrets: []
+        subscriptions:
+          - training
+        networking: null
+        resourceLimits:
+          CPU:
+            request: "0.5"
+            limit: "1"
+          memory:
+            request: 400M
+            limit: 800M
